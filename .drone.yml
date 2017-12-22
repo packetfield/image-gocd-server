@@ -1,0 +1,18 @@
+---
+pipeline:
+
+  push:
+    image: plugins/gcr
+    repo: packetfield/gocd-server
+    # dockerfile: outyet/Dockerfile
+    tags:
+      - "${DRONE_COMMIT:0:8}"
+      - "${DRONE_BRANCH}"
+      - "build-${DRONE_BUILD_NUMBER}"
+    secrets: [google_credentials]
+
+
+    when:
+      branch: [master, develop]
+      event: [push]
+
